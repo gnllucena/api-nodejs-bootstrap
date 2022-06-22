@@ -1,0 +1,54 @@
+{
+  "name": "semnome020",
+  "version": "0.0.1",
+  "description": "semnome020",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "nps",
+    "test": "npm start test",
+    "build": "npm start build",
+    "presetup": "yarn install",
+    "setup": "npm start config && npm start setup.script"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "gnllucena@gmail.com",
+  "resolutions": {
+    "**/event-stream": "^4.0.1"
+  },
+  "dependencies": {
+    "bcrypt": "5.0.1",
+    "class-validator": "^0.12.2",
+    "compression": "^1.7.4",
+    "dotenv": "16.0.1",
+    "express": "^4.18.1",
+    "express-status-monitor": "^1.3.4",
+    "helmet": "^5.1.0",
+    "morgan": "^1.10.0",
+    "routing-controllers": "^0.9.0",
+    "routing-controllers-openapi": "^3.1.0",
+    "typedi": "0.10.0",
+    "typeorm": "^0.3.6",
+    "typeorm-typedi-extensions": "^0.4.1",
+    "uuid": "^8.3.2",
+    "winston": "3.7.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.13",
+    "@types/helmet": "0.0.48",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^8.3.4",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.16",
+    "nps": "^5.10.0",
+    "nps-utils": "^1.7.0",
+    "ts-node": "10.8.1",
+    "tslint": "^5.20.1",
+    "typescript": "^4.7.4"
+  },
+  "license": "MIT"
+}
