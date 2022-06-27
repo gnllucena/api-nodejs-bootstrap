@@ -6,10 +6,11 @@ import path from 'path';
 dotenv.config();
 
 const port = process.env.PORT;
-const controllers = path.join(__dirname + '/controllers/*.js');
+const controllers = path.join(__dirname + '/controllers/*.ts');
 
 createExpressServer({
-  controllers: [ controllers ],
+  controllers: [controllers],
+  middlewares: [],
   cors: true,
   classTransformer: true,
   defaultErrorHandler: false,
