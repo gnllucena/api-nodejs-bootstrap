@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  database:
+    container_name: postgres
+    image: postgres:13
+    volumes:
+      - postgres:/var/lib/postgres
+    ports:
+      - '5432:5432'
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: apidb
+    env_file:
+      - ./.env
+
+volumes:
+  postgres: {}

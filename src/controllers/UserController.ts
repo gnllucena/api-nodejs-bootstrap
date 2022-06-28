@@ -1,10 +1,12 @@
 import { JsonController, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import { Service } from 'typedi';
 import { User } from '../domain/User';
 import { UserService } from '../services/UserService';
 
 @JsonController('/users')
+@Service()
 export class UserController {
-  constructor(public userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   post(@Body() user: User) {
@@ -12,17 +14,17 @@ export class UserController {
   }
 
   @Put('/:id')
-  put(@Param('id') id: number, @Body() user: User) {
+  put(@Param('id') id: string, @Body() user: User) {
     return this.userService.update(id, user);
   }
 
   @Delete('/:id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id') id: string) {
     return this.userService.delete(id);
   }
 
   @Get('/:id')
-  get(@Param('id') id: number) {
+  get(@Param('id') id: string) {
     return this.userService.get(id);
   }
 

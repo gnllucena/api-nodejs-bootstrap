@@ -4,7 +4,11 @@
   "description": "semnome020",
   "main": "src/app.ts",
   "scripts": {
-    "start": "tsnd --respawn --transpile-only src/app.ts -- --inspect"
+    "start": "tsnd --respawn --transpile-only src/app.ts -- --inspect",
+    "database": "docker compose -f docker-compose.yaml up",
+    "migrations:create": "typeorm migration:create ./migrations/migration",
+    "migrations:up": "typeorm-ts-node-commonjs migration:run -d src/configurations/DataSource.ts",
+    "migrations:down": "typeorm-ts-node-commonjs migration:revert -d src/configurations/DataSource.ts"
   },
   "author": "gnllucena@gmail.com",
   "resolutions": {
@@ -20,6 +24,7 @@
     "express": "^4.18.1",
     "helmet": "^5.1.0",
     "multer": "^1.4.5-lts.1",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
     "routing-controllers-openapi": "^3.1.0",
@@ -39,8 +44,6 @@
     "@types/node": "^18.0.0",
     "@types/uuid": "^8.3.4",
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.18",
-    "ts-node": "^10.8.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
   },

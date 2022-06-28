@@ -9,15 +9,15 @@ export class File {
   id: string;
 
   @IsNotEmpty()
-  @Column({ name: 'name', length: 80, type: 'string' })
+  @Column({ name: 'name', length: 80, type: 'varchar' })
   name: string;
 
   @IsNotEmpty()
-  @Column({ name: 'path', length: 200, type: 'string' })
+  @Column({ name: 'path', length: 200, type: 'varchar' })
   path: string;
 
   @IsNotEmpty()
-  @Column({ name: 'status', type: 'string', enum: FileStatus, default: FileStatus.Pending })
+  @Column({ name: 'status', type: 'varchar', enum: FileStatus, default: FileStatus.Pending })
   status: FileStatus;
 
   @ManyToOne(() => User, (user: User) => user.files)

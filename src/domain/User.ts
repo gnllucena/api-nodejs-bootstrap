@@ -10,15 +10,15 @@ export class User {
   Id: string;
 
   @IsNotEmpty()
-  @Column({ name: 'name', length: 80, type: 'string' })
+  @Column({ name: 'name', length: 80, type: 'varchar' })
   name: string;
 
   @IsNotEmpty()
-  @Column({ name: 'email', length: 80, type: 'string' })
+  @Column({ name: 'email', length: 80, type: 'varchar' })
   email: string;
 
   @IsNotEmpty()
-  @Column({ name: 'password', length: 100, type: 'string' })
+  @Column({ name: 'password', length: 100, type: 'varchar' })
   @Exclude()
   password: string;
 
