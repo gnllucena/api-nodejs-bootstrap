@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Container from 'typedi';
 import compression from 'compression';
+import ExceptionHandlingMiddleware from './middlewares/ExceptionHandlingMiddleware';
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ dataSource
   .then(() => {
     const options: RoutingControllersOptions = {
       controllers: [controllers],
-      middlewares: [],
+      middlewares: [ExceptionHandlingMiddleware],
       cors: true,
       classTransformer: true,
       defaultErrorHandler: true,

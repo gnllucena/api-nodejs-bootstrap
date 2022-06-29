@@ -11,11 +11,9 @@ import {
 import { UserModel } from '../models/UserModel';
 import { Service } from 'typedi';
 import { UserService } from '../services/UserService';
-import { ExceptionHanddlerMiddleware } from '../middlewares/ExceptionHanddlerMiddleware';
 
 @JsonController('/users')
 @Service()
-// @UseBefore(ExceptionHanddlerMiddleware)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

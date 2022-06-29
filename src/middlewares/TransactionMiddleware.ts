@@ -1,4 +1,14 @@
-export class transaction {}
+import { Middleware, ExpressMiddlewareInterface } from 'routing-controllers';
+import { Service } from 'typedi';
+
+@Middleware({ type: 'before' })
+@Service()
+export default class TransactionMiddleware implements ExpressMiddlewareInterface {
+  use(request: any, response: any, next: (err: any) => any): void {
+    console.log('do something...');
+    next({});
+  }
+}
 
 // // create a new query runner
 // const queryRunner = dataSource.createQueryRunner();

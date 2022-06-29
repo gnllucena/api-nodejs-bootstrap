@@ -6,8 +6,8 @@ import { ClassValidatorException } from './../exceptions/ClassValidatorException
 export class ValidationService {
   async validate(model: unknown) {
     await validate(model).then((errors: ValidationError[]) => {
+      throw new ClassValidatorException('Testing stop process.');
       if (errors.length > 0) {
-        throw new ClassValidatorException(errors.toString());
       }
     });
   }

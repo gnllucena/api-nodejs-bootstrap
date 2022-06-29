@@ -1,6 +1,7 @@
-import { IsPositive } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class FileModel {
   @IsPositive()
-  Id: number;
+  @IsNumber()
+  id: number;
 }

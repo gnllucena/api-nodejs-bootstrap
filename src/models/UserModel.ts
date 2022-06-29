@@ -1,9 +1,10 @@
+import { Type } from 'class-transformer';
 import { IsNotEmpty, IsEmail, Length, IsPositive, ValidateNested, IsArray } from 'class-validator';
 import { FileModel } from './FileModel';
 
 export class UserModel {
   @IsPositive()
-  Id: number;
+  id: number;
 
   @IsNotEmpty()
   @Length(1, 80)
@@ -20,5 +21,6 @@ export class UserModel {
 
   @IsArray()
   @ValidateNested()
+  @Type(() => FileModel)
   files: FileModel[];
 }
