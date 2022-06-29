@@ -7,7 +7,11 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Container from 'typedi';
 import compression from 'compression';
-import ExceptionHandlingMiddleware from './middlewares/ExceptionHandlingMiddleware';
+import UnhandledException from './configurations/UnhandledException';
+import {
+  CloseTransactionMiddleware,
+  StartTransactionMiddleware,
+} from './configurations/Transactions';
 
 dotenv.config();
 
@@ -17,15 +21,16 @@ const dataSource = DataSource.instance();
 useContainer(Container);
 
 dataSource
-  .configuration()
+  .source()
   .initialize()
   .then(() => {
     const options: RoutingControllersOptions = {
       controllers: [controllers],
-      middlewares: [ExceptionHandlingMiddleware],
+      middlewares: [StartTransactionMiddleware, UnhandledException],
+      interceptors: [CloseTransactionMiddleware],
       cors: true,
       classTransformer: true,
-      defaultErrorHandler: true,
+      defaultErrorHandler: false,
     };
 
     const app = createExpressServer(options);

@@ -1,14 +1,9 @@
-import { validate, ValidationError } from 'class-validator';
 import { Service } from 'typedi';
-import { ClassValidatorException } from './../exceptions/ClassValidatorException';
+import { Exception } from '../exceptions/Exception';
 
 @Service()
 export class ValidationService {
   async validate(model: unknown) {
-    await validate(model).then((errors: ValidationError[]) => {
-      throw new ClassValidatorException('Testing stop process.');
-      if (errors.length > 0) {
-      }
-    });
+    throw new Exception('ERROR TEST ON VALIDATION SERVICE.');
   }
 }

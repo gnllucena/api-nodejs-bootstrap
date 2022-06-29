@@ -7,13 +7,21 @@ import {
   Put,
   Delete,
   UseBefore,
+  UseInterceptor,
+  UseAfter,
 } from 'routing-controllers';
 import { UserModel } from '../models/UserModel';
 import { Service } from 'typedi';
 import { UserService } from '../services/UserService';
+import {
+  CloseOnExceptionTransactionMiddleware,
+  StartTransactionMiddleware,
+} from '../configurations/Transactions';
 
 @JsonController('/users')
 @Service()
+// @UseBefore(StartTransactionMiddleware)
+@UseAfter(StartTransactionMiddleware)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

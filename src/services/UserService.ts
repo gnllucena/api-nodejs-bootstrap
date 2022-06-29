@@ -3,23 +3,22 @@ import { Service } from 'typedi';
 import { DataSource } from '../configurations/DataSource';
 import { EntityManager } from 'typeorm';
 import { UserModel } from '../models/UserModel';
-import { ValidationService } from './ValidationService';
+import { Exception } from '../exceptions/Exception';
 
 @Service()
 export class UserService {
   private readonly connection: EntityManager;
-  constructor(private readonly validation: ValidationService) {
-    this.connection = DataSource.instance().configuration().manager;
+  constructor() {
+    this.connection = DataSource.instance().connection();
   }
 
   async insert(user: UserModel): Promise<User> {
-    await this.validation.validate(user);
-
+    //throw new Exception('asdfadsfasdf');
     return new User();
   }
 
   async update(id: number, user: UserModel): Promise<User> {
-    // this.connection.update(user, )
+    //this.connection.update(user);
 
     return this.get(id);
   }

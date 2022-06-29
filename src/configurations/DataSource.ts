@@ -1,4 +1,4 @@
-import { DataSource as DataSourceTypeOrm } from 'typeorm';
+import { DataSource as DataSourceTypeOrm, EntityManager, QueryRunner } from 'typeorm';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -30,7 +30,15 @@ export class DataSource {
     return DataSource._instance;
   }
 
-  public configuration(): DataSourceTypeOrm {
+  public source(): DataSourceTypeOrm {
     return this._dataSource;
+  }
+
+  public runner(): QueryRunner {
+    return this._dataSource.createQueryRunner();
+  }
+
+  public connection(): EntityManager {
+    return this._dataSource.manager;
   }
 }
