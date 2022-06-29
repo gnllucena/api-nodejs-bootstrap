@@ -2,20 +2,15 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm
 
 export class migration1656383959834 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      'create extension IF NOT EXISTS "uuid-ossp" schema pg_catalog version "1.1";'
-    );
-
     await queryRunner.createTable(
       new Table({
         name: 'user',
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            generationStrategy: 'increment',
           },
           {
             name: 'name',
@@ -40,14 +35,13 @@ export class migration1656383959834 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            generationStrategy: 'increment',
           },
           {
             name: 'user_id',
-            type: 'uuid',
+            type: 'int',
           },
           {
             name: 'name',

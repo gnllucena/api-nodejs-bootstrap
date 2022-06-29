@@ -1,13 +1,12 @@
 import 'reflect-metadata';
-import { createExpressServer, getMetadataArgsStorage, useContainer } from 'routing-controllers';
+import { createExpressServer, RoutingControllersOptions, useContainer } from 'routing-controllers';
 import { serve, setup } from 'swagger-ui-express';
 import { DataSource } from './configurations/DataSource';
-import { routingControllersToSpec } from 'routing-controllers-openapi';
-import { defaultMetadataStorage } from 'class-transformer/cjs/storage';
-import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
+import { swagger } from './configurations/Swagger';
 import dotenv from 'dotenv';
 import path from 'path';
 import Container from 'typedi';
+import compression from 'compression';
 
 dotenv.config();
 
@@ -20,40 +19,18 @@ dataSource
   .configuration()
   .initialize()
   .then(() => {
-    const routingControllersOptions = {
+    const options: RoutingControllersOptions = {
       controllers: [controllers],
       middlewares: [],
       cors: true,
       classTransformer: true,
-      defaultErrorHandler: false,
+      defaultErrorHandler: true,
     };
 
-    const app = createExpressServer(routingControllersOptions);
+    const app = createExpressServer(options);
 
-    const schemas = validationMetadatasToSchemas({
-      classTransformerMetadataStorage: defaultMetadataStorage,
-      refPointerPrefix: '#/components/schemas/',
-    });
-
-    const storage = getMetadataArgsStorage();
-    const spec = routingControllersToSpec(storage, routingControllersOptions, {
-      components: {
-        schemas,
-        securitySchemes: {
-          basicAuth: {
-            scheme: 'basic',
-            type: 'http',
-          },
-        },
-      },
-      info: {
-        description: 'Generated with `routing-controllers-openapi`',
-        title: 'A sample API',
-        version: '1.0.0',
-      },
-    });
-
-    app.use('/docs', serve, setup(spec));
+    app.use('/swagger', serve, setup(swagger(options)));
+    app.use(compression());
 
     app.listen(process.env.PORT);
   });

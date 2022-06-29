@@ -1,30 +1,41 @@
-import { JsonController, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import {
+  JsonController,
+  Param,
+  Body,
+  Get,
+  Post,
+  Put,
+  Delete,
+  UseBefore,
+} from 'routing-controllers';
+import { UserModel } from '../models/UserModel';
 import { Service } from 'typedi';
-import { User } from '../domain/User';
 import { UserService } from '../services/UserService';
+import { ExceptionHanddlerMiddleware } from '../middlewares/ExceptionHanddlerMiddleware';
 
 @JsonController('/users')
 @Service()
+// @UseBefore(ExceptionHanddlerMiddleware)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  post(@Body() user: User) {
+  post(@Body() user: UserModel) {
     return this.userService.insert(user);
   }
 
   @Put('/:id')
-  put(@Param('id') id: string, @Body() user: User) {
+  put(@Param('id') id: number, @Body() user: UserModel) {
     return this.userService.update(id, user);
   }
 
   @Delete('/:id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id') id: number) {
     return this.userService.delete(id);
   }
 
   @Get('/:id')
-  get(@Param('id') id: string) {
+  get(@Param('id') id: number) {
     return this.userService.get(id);
   }
 
