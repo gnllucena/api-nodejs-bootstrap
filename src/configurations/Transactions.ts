@@ -9,7 +9,7 @@ import { Service } from 'typedi';
 import { QueryRunner } from 'typeorm';
 import { DataSource } from './DataSource';
 
-@Middleware({ type: 'after' })
+@Middleware({ type: 'before' })
 @Service()
 export class StartTransactionMiddleware implements ExpressMiddlewareInterface {
   private readonly runner: QueryRunner;
